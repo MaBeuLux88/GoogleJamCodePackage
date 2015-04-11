@@ -234,7 +234,7 @@ public abstract class AbstractCodeJam {
      *
      * @param scan scanner
      */
-    protected void skipWhiteSpace(Scanner scan) {
+    protected void skipWhitespace(Scanner scan) {
         scan.skip(" ");
     }
 
