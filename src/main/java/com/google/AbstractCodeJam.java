@@ -31,6 +31,168 @@ public abstract class AbstractCodeJam {
     private final static int nbThreads = Runtime.getRuntime().availableProcessors();
 
     /**
+     * Log method. Update the "debug" attribute to be verbose or not.
+     *
+     * @param string  The String you want to print in the console.
+     * @param newLine True if you want a carriage return else false.
+     */
+    protected static void log(String string, boolean newLine) {
+        if (debug) {
+            if (newLine) {
+                System.out.println(string);
+            } else {
+                System.out.print(string);
+            }
+        }
+    }
+
+    /**
+     * Main function.
+     *
+     * @param args no args needed
+     * @throws FileNotFoundException
+     */
+    public static void main(String[] args) throws FileNotFoundException {
+        try {
+            new Main().solveProblems(new PrintStream(new File("result.out")));
+        } catch (Exception e) {
+            System.err.println("Shit happens...");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Carriage return.
+     *
+     * @param scan scanner
+     */
+    protected void carriageReturn(Scanner scan) {
+        scan.nextLine();
+    }
+
+    /**
+     * Read a big decimal without carriage return.
+     *
+     * @param scan scanner
+     * @return BigDecimal
+     */
+    protected BigDecimal readBigD(Scanner scan) {
+        return scan.nextBigDecimal();
+    }
+
+    /**
+     * Read a big integer without carriage return.
+     *
+     * @param scan scanner
+     * @return BigInteger
+     */
+    protected BigInteger readBigInteger(Scanner scan) {
+        return scan.nextBigInteger();
+    }
+
+    /**
+     * Read a double without carriage return.
+     *
+     * @param scan scanner
+     * @return double
+     */
+    protected double readDouble(Scanner scan) {
+        return scan.nextDouble();
+    }
+
+    /**
+     * Read an integer without carriage return.
+     *
+     * @param scan scanner
+     * @return integer
+     */
+    protected int readInteger(Scanner scan) {
+        return scan.nextInt();
+    }
+
+    /**
+     * Read list of doubles on a single line and carriage return at the end.
+     *
+     * @param numberToRead Number of doubles to read on the line.
+     * @param scan         scanner
+     * @return List of the doubles.
+     */
+    protected List<Double> readListDouble(int numberToRead, Scanner scan) {
+        List<Double> list = new ArrayList<>();
+        for (int i = 0; i < numberToRead; i++) {
+            list.add(scan.nextDouble());
+        }
+        carriageReturn(scan);
+        return list;
+    }
+
+    /**
+     * Read list of integers on a single line and carriage return at the end.
+     *
+     * @param numberToRead Number of integers to read on the line.
+     * @param scan         scanner
+     * @return List of the integers.
+     */
+    protected List<Integer> readListInteger(int numberToRead, Scanner scan) {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < numberToRead; i++) {
+            list.add(scan.nextInt());
+        }
+        carriageReturn(scan);
+        return list;
+    }
+
+    /**
+     * Read a long without carriage return.
+     *
+     * @param scan scanner
+     * @return long
+     */
+    protected long readLong(Scanner scan) {
+        return scan.nextLong();
+    }
+
+    /**
+     * Read an array of integers separated by whitespace
+     *
+     * @param height height
+     * @param width  width
+     * @param scan   scanner
+     * @return Two dimensions array of integers.
+     */
+    protected int[][] readMapInteger(int height, int width, Scanner scan) {
+        int[][] map = new int[height][width];
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                map[i][j] = readInteger(scan);
+            }
+            carriageReturn(scan);
+        }
+        return map;
+    }
+
+    /**
+     * Read an array of Characters and generate an array of strings (easier to
+     * manipulate).
+     *
+     * @param height height
+     * @param width  width
+     * @param scan   scanner
+     * @return Two dimensions array of Strings. Each string will contain a
+     * single character.
+     */
+    protected String[][] readMapString(int height, int width, Scanner scan) {
+        String[][] map = new String[height][width];
+        for (int i = 0; i < map.length; i++) {
+            String line = scan.nextLine();
+            for (int j = 0; j < map[i].length; j++) {
+                map[i][j] = line.substring(j, j + 1);
+            }
+        }
+        return map;
+    }
+
+    /**
      * That's how we read problems. This method must be updated for every
      * problems.
      *
@@ -38,6 +200,43 @@ public abstract class AbstractCodeJam {
      * @return A ProblemSample: the instance of a problem we have to solve.
      */
     protected abstract ProblemSample readProblem(Scanner scan);
+
+    /**
+     * Read a String with a carriage return at the end of the line (= no need to
+     * make it manually).
+     *
+     * @param scan scanner
+     * @return String
+     */
+    protected String readString(Scanner scan) {
+        return scan.nextLine();
+    }
+
+    /**
+     * Read a String made of integers with a carriage return at the end of the line (= no need to
+     * make it manually) and transform it into a list of integers.
+     *
+     * @param scan scanner
+     * @return String
+     */
+    protected List<Integer> readStringAsListInteger(Scanner scan) {
+        String string = scan.nextLine();
+        char[] chars = string.toCharArray();
+        List<Integer> listIntegers = new ArrayList<>();
+        for (char aChar : chars) {
+            listIntegers.add(new Integer(String.valueOf(aChar)));
+        }
+        return listIntegers;
+    }
+
+    /**
+     * Skip one whitespace character.
+     *
+     * @param scan scanner
+     */
+    protected void skipWhiteSpace(Scanner scan) {
+        scan.skip(" ");
+    }
 
     /**
      * Multithreaded method responsible of solving all the problems.
@@ -78,179 +277,6 @@ public abstract class AbstractCodeJam {
             i++;
             Main.log("Solution " + i + ": " + future.get().toString(), true);
             out.println("Case #" + i + ": " + future.get().toString());
-        }
-    }
-
-    /**
-     * Carriage return.
-     *
-     * @param scan scanner
-     */
-    protected void carriageReturn(Scanner scan) {
-        scan.nextLine();
-    }
-
-    /**
-     * Read an integer without carriage return.
-     *
-     * @param scan scanner
-     * @return integer
-     */
-    protected int readInteger(Scanner scan) {
-        return scan.nextInt();
-    }
-
-    /**
-     * Read a big integer without carriage return.
-     *
-     * @param scan scanner
-     * @return BigInteger
-     */
-    protected BigInteger readBigInteger(Scanner scan) {
-        return scan.nextBigInteger();
-    }
-
-    /**
-     * Read a big decimal without carriage return.
-     *
-     * @param scan scanner
-     * @return BigDecimal
-     */
-    protected BigDecimal readBigD(Scanner scan) {
-        return scan.nextBigDecimal();
-    }
-
-    /**
-     * Read a long without carriage return.
-     *
-     * @param scan scanner
-     * @return long
-     */
-    protected long readLong(Scanner scan) {
-        return scan.nextLong();
-    }
-
-    /**
-     * Read a double without carriage return.
-     *
-     * @param scan scanner
-     * @return double
-     */
-    protected double readDouble(Scanner scan) {
-        return scan.nextDouble();
-    }
-
-    /**
-     * Read a String with a carriage return at the end of the line (= no need to
-     * make it manually).
-     *
-     * @param scan scanner
-     * @return String
-     */
-    protected String readString(Scanner scan) {
-        return scan.nextLine();
-    }
-
-    /**
-     * Read list of integers on a single line and carriage return at the end.
-     *
-     * @param numberToRead Number of integers to read on the line.
-     * @param scan scanner
-     * @return List of the integers.
-     */
-    protected List<Integer> readListInteger(int numberToRead, Scanner scan) {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < numberToRead; i++) {
-            list.add(scan.nextInt());
-        }
-        carriageReturn(scan);
-        return list;
-    }
-
-    /**
-     * Read list of doubles on a single line and carriage return at the end.
-     *
-     * @param numberToRead Number of doubles to read on the line.
-     * @param scan scanner
-     * @return List of the doubles.
-     */
-    protected List<Double> readListDouble(int numberToRead, Scanner scan) {
-        List<Double> list = new ArrayList<>();
-        for (int i = 0; i < numberToRead; i++) {
-            list.add(scan.nextDouble());
-        }
-        carriageReturn(scan);
-        return list;
-    }
-
-    /**
-     * Read an array of Characters and generate an array of strings (easier to
-     * manipulate).
-     *
-     * @param height height
-     * @param width width
-     * @param scan scanner
-     * @return Two dimensions array of Strings. Each string will contain a
-     * single character.
-     */
-    protected String[][] readMapString(int height, int width, Scanner scan) {
-        String[][] map = new String[height][width];
-        for (int i = 0; i < map.length; i++) {
-            String line = scan.nextLine();
-            for (int j = 0; j < map[i].length; j++) {
-                map[i][j] = line.substring(j, j + 1);
-            }
-        }
-        return map;
-    }
-
-    /**
-     * Read an array of integers separated by whitespace
-     *
-     * @param height height
-     * @param width width
-     * @param scan scanner
-     * @return Two dimensions array of integers.
-     */
-    protected int[][] readMapInteger(int height, int width, Scanner scan) {
-        int[][] map = new int[height][width];
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                map[i][j] = readInteger(scan);
-            }
-            carriageReturn(scan);
-        }
-        return map;
-    }
-
-    /**
-     * Log method. Update the "debug" attribute to be verbose or not.
-     *
-     * @param string  The String you want to print in the console.
-     * @param newLine True if you want a carriage return else false.
-     */
-    protected static void log(String string, boolean newLine) {
-        if (debug) {
-            if (newLine) {
-                System.out.println(string);
-            } else {
-                System.out.print(string);
-            }
-        }
-    }
-
-    /**
-     * Main function.
-     *
-     * @param args no args needed
-     * @throws FileNotFoundException
-     */
-    public static void main(String[] args) throws FileNotFoundException {
-        try {
-            new Main().solveProblems(new PrintStream(new File("result.out")));
-        } catch (Exception e) {
-            System.err.println("Shit happens...");
-            e.printStackTrace();
         }
     }
 
