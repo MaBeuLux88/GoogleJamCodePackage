@@ -36,7 +36,7 @@ public abstract class AbstractCodeJam {
      * @param string  The String you want to print in the console.
      * @param newLine True if you want a carriage return else false.
      */
-    protected static void log(String string, boolean newLine) {
+    static void log(String string, boolean newLine) {
         if (debug) {
             if (newLine) {
                 System.out.println(string);
@@ -66,7 +66,7 @@ public abstract class AbstractCodeJam {
      *
      * @param scan scanner
      */
-    protected void carriageReturn(Scanner scan) {
+     void carriageReturn(Scanner scan) {
         scan.nextLine();
     }
 
@@ -76,7 +76,7 @@ public abstract class AbstractCodeJam {
      * @param scan scanner
      * @return BigDecimal
      */
-    protected BigDecimal readBigD(Scanner scan) {
+     BigDecimal readBigD(Scanner scan) {
         return scan.nextBigDecimal();
     }
 
@@ -86,7 +86,7 @@ public abstract class AbstractCodeJam {
      * @param scan scanner
      * @return BigInteger
      */
-    protected BigInteger readBigInteger(Scanner scan) {
+     BigInteger readBigInteger(Scanner scan) {
         return scan.nextBigInteger();
     }
 
@@ -96,7 +96,7 @@ public abstract class AbstractCodeJam {
      * @param scan scanner
      * @return double
      */
-    protected double readDouble(Scanner scan) {
+     double readDouble(Scanner scan) {
         return scan.nextDouble();
     }
 
@@ -106,7 +106,7 @@ public abstract class AbstractCodeJam {
      * @param scan scanner
      * @return integer
      */
-    protected int readInteger(Scanner scan) {
+     int readInteger(Scanner scan) {
         return scan.nextInt();
     }
 
@@ -117,7 +117,7 @@ public abstract class AbstractCodeJam {
      * @param scan         scanner
      * @return List of the doubles.
      */
-    protected List<Double> readListDouble(int numberToRead, Scanner scan) {
+     List<Double> readListDouble(int numberToRead, Scanner scan) {
         List<Double> list = new ArrayList<>();
         for (int i = 0; i < numberToRead; i++) {
             list.add(scan.nextDouble());
@@ -133,7 +133,7 @@ public abstract class AbstractCodeJam {
      * @param scan         scanner
      * @return List of the integers.
      */
-    protected List<Integer> readListInteger(int numberToRead, Scanner scan) {
+     List<Integer> readListInteger(int numberToRead, Scanner scan) {
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < numberToRead; i++) {
             list.add(scan.nextInt());
@@ -148,7 +148,7 @@ public abstract class AbstractCodeJam {
      * @param scan scanner
      * @return long
      */
-    protected long readLong(Scanner scan) {
+     long readLong(Scanner scan) {
         return scan.nextLong();
     }
 
@@ -181,7 +181,7 @@ public abstract class AbstractCodeJam {
      * @return Two dimensions array of Strings. Each string will contain a
      * single character.
      */
-    protected String[][] readMapString(int height, int width, Scanner scan) {
+    String[][] readMapString(int height, int width, Scanner scan) {
         String[][] map = new String[height][width];
         for (int i = 0; i < map.length; i++) {
             String line = scan.nextLine();
@@ -208,7 +208,7 @@ public abstract class AbstractCodeJam {
      * @param scan scanner
      * @return String
      */
-    protected String readString(Scanner scan) {
+    String readString(Scanner scan) {
         return scan.nextLine();
     }
 
@@ -219,7 +219,7 @@ public abstract class AbstractCodeJam {
      * @param scan scanner
      * @return String
      */
-    protected List<Integer> readStringAsListInteger(Scanner scan) {
+    List<Integer> readStringAsListInteger(Scanner scan) {
         String string = scan.nextLine();
         char[] chars = string.toCharArray();
         List<Integer> listIntegers = new ArrayList<>();
@@ -234,7 +234,7 @@ public abstract class AbstractCodeJam {
      *
      * @param scan scanner
      */
-    protected void skipWhitespace(Scanner scan) {
+    void skipWhitespace(Scanner scan) {
         scan.skip(" ");
     }
 

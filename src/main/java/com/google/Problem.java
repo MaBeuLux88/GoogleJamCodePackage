@@ -7,7 +7,7 @@ import java.util.concurrent.Callable;
  * Abstract class Problem. Contains all the common stuff to each Google Jam Code
  * problem and some functions to help the debugging process.
  */
-public abstract class Problem implements Callable<Object> {
+abstract class Problem implements Callable<Object> {
 
     /**
      * The final solution of the problem you MUST set at the end of the solve
@@ -26,7 +26,7 @@ public abstract class Problem implements Callable<Object> {
      * Print a problem. You can implement this function to make sure you read it
      * correctly in the first place to avoid dummy mistake...
      *
-     * @param number
+     * @param number the number of the problem
      */
     protected abstract void print(int number);
 
@@ -35,16 +35,16 @@ public abstract class Problem implements Callable<Object> {
      *
      * @return Solution
      */
-    protected Object getSolution() {
+    private Object getSolution() {
         return solution;
     }
 
     /**
      * Setter Solution - MUST be used at the end of the solve method.
      *
-     * @param solution
+     * @param solution the final solution of the problem
      */
-    protected void setSolution(Object solution) {
+    void setSolution(Object solution) {
         this.solution = solution;
     }
 
@@ -64,22 +64,20 @@ public abstract class Problem implements Callable<Object> {
      * @param list List of whatever as far as you can run toString() on it.
      */
     protected void printList(List<?> list) {
-        for (int i = 0; i < list.size(); i++) {
-            Main.log(list.get(i).toString() + " ", false);
-        }
+        for (Object aList : list)
+            Main.log(aList.toString() + " ", false);
         Main.log("", true);
     }
 
     /**
      * Display a map of strings.
      *
-     * @param map
+     * @param map map of strings to print
      */
     protected void printMap(String[][] map) {
         for (String[] element : map) {
-            for (String element2 : element) {
+            for (String element2 : element)
                 Main.log(element2, false);
-            }
             Main.log("", true);
         }
     }
@@ -87,13 +85,12 @@ public abstract class Problem implements Callable<Object> {
     /**
      * Display a map of integers.
      *
-     * @param map
+     * @param map map of integers to print
      */
     protected void printMap(int[][] map) {
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[0].length; j++) {
-                Main.log(String.valueOf(map[i][j]) + " ", false);
-            }
+        for (int[] aMap : map) {
+            for (int i : aMap)
+                Main.log(String.valueOf(i) + " ", false);
             Main.log("", true);
         }
     }

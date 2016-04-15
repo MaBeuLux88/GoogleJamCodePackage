@@ -36,17 +36,8 @@ public class Main extends AbstractCodeJam {
         // - readMapString
         // - readMapInteger
 
-        pb.setFirst(scan.nextInt());
+        pb.setN(readInteger(scan));
         carriageReturn(scan);
-
-        int[][] cardsOne = readMapInteger(4, 4, scan);
-        pb.setCardsOne(cardsOne);
-
-        pb.setSecond(scan.nextInt());
-        carriageReturn(scan);
-
-        int[][] cardsTwo = readMapInteger(4, 4, scan);
-        pb.setCardsTwo(cardsTwo);
 
         return pb;
     }
