@@ -18,8 +18,8 @@ public class Main extends AbstractCodeJam {
      * @param scan The problem.in ( = the input).
      * @return A ProblemSample: instance of a problem we want to solve.
      */
-    protected ProblemSample readProblem(Scanner scan) {
-        ProblemSample pb = new ProblemSample();
+    protected ProblemSample readProblem(Scanner scan, PreProcess preProcess) {
+        ProblemSample pb = new ProblemSample(preProcess);
         scan.useLocale(Locale.US);
 
         // READ AND SET the variables in the ProblemSample.
@@ -35,6 +35,9 @@ public class Main extends AbstractCodeJam {
         // - readListDouble
         // - readMapString
         // - readMapInteger
+
+        // Comment this for real run.
+        activateDebug();
 
         pb.setN(readInteger(scan));
         carriageReturn(scan);

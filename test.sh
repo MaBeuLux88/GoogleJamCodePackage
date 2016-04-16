@@ -1,5 +1,5 @@
 #!/bin/bash
-mvn exec:java -Dexec.mainClass="com.google.Main"
+time mvn exec:java -Dexec.mainClass="com.google.Main"
 res=$(diff -B sample.out result.out)
 if [ "$res" != "" ]
 then

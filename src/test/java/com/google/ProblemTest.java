@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 public class ProblemTest {
 
     @Test
-    public void testName() throws Exception {
+    public void testName() {
         ProblemSample pb = new ProblemSample();
         pb.solve();
         Assertions.assertThat(true).isTrue();

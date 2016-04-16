@@ -1,7 +1,6 @@
 package com.google;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -21,14 +20,19 @@ public abstract class AbstractCodeJam {
     /**
      * Verbosity. True = ON / False = OFF.
      */
-    private final static boolean debug = true;
+    private static boolean debug = false;
 
     /**
      * The pool size of the ExecutorService. I think that this number should be
      * equal to the numbers of available processors. Feel free to update if your
      * religion says something different.
      */
-    private final static int nbThreads = Runtime.getRuntime().availableProcessors();
+    private static int nbThreads = Runtime.getRuntime().availableProcessors();
+
+    void activateDebug() {
+        debug = true;
+        nbThreads = 1;
+    }
 
     /**
      * Log method. Update the "debug" attribute to be verbose or not.
@@ -50,11 +54,10 @@ public abstract class AbstractCodeJam {
      * Main function.
      *
      * @param args no args needed
-     * @throws FileNotFoundException
      */
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
         try {
-            new Main().solveProblems(new PrintStream(new File("result.out")));
+            new Main().solveProblems(new PrintStream(new File("result.out")), new PreProcess());
         } catch (Exception e) {
             System.err.println("Shit happens...");
             e.printStackTrace();
@@ -66,7 +69,7 @@ public abstract class AbstractCodeJam {
      *
      * @param scan scanner
      */
-     void carriageReturn(Scanner scan) {
+    void carriageReturn(Scanner scan) {
         scan.nextLine();
     }
 
@@ -76,7 +79,7 @@ public abstract class AbstractCodeJam {
      * @param scan scanner
      * @return BigDecimal
      */
-     BigDecimal readBigD(Scanner scan) {
+    BigDecimal readBigD(Scanner scan) {
         return scan.nextBigDecimal();
     }
 
@@ -86,7 +89,7 @@ public abstract class AbstractCodeJam {
      * @param scan scanner
      * @return BigInteger
      */
-     BigInteger readBigInteger(Scanner scan) {
+    BigInteger readBigInteger(Scanner scan) {
         return scan.nextBigInteger();
     }
 
@@ -96,7 +99,7 @@ public abstract class AbstractCodeJam {
      * @param scan scanner
      * @return double
      */
-     double readDouble(Scanner scan) {
+    double readDouble(Scanner scan) {
         return scan.nextDouble();
     }
 
@@ -106,7 +109,7 @@ public abstract class AbstractCodeJam {
      * @param scan scanner
      * @return integer
      */
-     int readInteger(Scanner scan) {
+    int readInteger(Scanner scan) {
         return scan.nextInt();
     }
 
@@ -117,7 +120,7 @@ public abstract class AbstractCodeJam {
      * @param scan         scanner
      * @return List of the doubles.
      */
-     List<Double> readListDouble(int numberToRead, Scanner scan) {
+    List<Double> readListDouble(int numberToRead, Scanner scan) {
         List<Double> list = new ArrayList<>();
         for (int i = 0; i < numberToRead; i++) {
             list.add(scan.nextDouble());
@@ -133,7 +136,7 @@ public abstract class AbstractCodeJam {
      * @param scan         scanner
      * @return List of the integers.
      */
-     List<Integer> readListInteger(int numberToRead, Scanner scan) {
+    List<Integer> readListInteger(int numberToRead, Scanner scan) {
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < numberToRead; i++) {
             list.add(scan.nextInt());
@@ -148,7 +151,7 @@ public abstract class AbstractCodeJam {
      * @param scan scanner
      * @return long
      */
-     long readLong(Scanner scan) {
+    long readLong(Scanner scan) {
         return scan.nextLong();
     }
 
@@ -199,7 +202,7 @@ public abstract class AbstractCodeJam {
      * @param scan The problem.in ( = the input).
      * @return A ProblemSample: the instance of a problem we have to solve.
      */
-    protected abstract ProblemSample readProblem(Scanner scan);
+    protected abstract ProblemSample readProblem(Scanner scan, PreProcess preProcess);
 
     /**
      * Read a String with a carriage return at the end of the line (= no need to
@@ -241,10 +244,11 @@ public abstract class AbstractCodeJam {
     /**
      * Multithreaded method responsible of solving all the problems.
      *
-     * @param out The result.out file.
+     * @param out        The result.out file.
+     * @param preProcess The stuff PreProcessed that can be used by any problem.
      * @throws Exception
      */
-    protected void solveProblems(PrintStream out) throws Exception {
+    protected void solveProblems(PrintStream out, PreProcess preProcess) throws Exception {
         Scanner scan = new Scanner(new File("problem.in"));
 
         // Read the number of test cases.
@@ -259,7 +263,7 @@ public abstract class AbstractCodeJam {
         // Read the input file and instantiate the problems; populate the list
         // of problems.
         for (int i = 1; i <= nbProblems; i++) {
-            ProblemSample problem = readProblem(scan);
+            ProblemSample problem = readProblem(scan, preProcess);
             problem.print(i);
             listProblems.add(problem);
         }
