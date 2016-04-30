@@ -39,9 +39,6 @@ public class Main extends AbstractCodeJam {
         // Comment this for real run.
         activateDebug();
 
-        pb.setN(readInteger(scan));
-        carriageReturn(scan);
-
         return pb;
     }
 

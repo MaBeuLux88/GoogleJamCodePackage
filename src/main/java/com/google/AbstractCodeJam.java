@@ -29,11 +29,6 @@ public abstract class AbstractCodeJam {
      */
     private static int nbThreads = Runtime.getRuntime().availableProcessors();
 
-    void activateDebug() {
-        debug = true;
-        nbThreads = 1;
-    }
-
     /**
      * Log method. Update the "debug" attribute to be verbose or not.
      *
@@ -62,6 +57,11 @@ public abstract class AbstractCodeJam {
             System.err.println("Shit happens...");
             e.printStackTrace();
         }
+    }
+
+    void activateDebug() {
+        debug = true;
+        nbThreads = 1;
     }
 
     /**

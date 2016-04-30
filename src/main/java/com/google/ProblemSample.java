@@ -10,14 +10,9 @@ import java.util.concurrent.Callable;
 class ProblemSample extends Problem implements Callable<Object> {
 
     private PreProcess preProcess;
-    private int n;
 
     ProblemSample(PreProcess preProcess) {
         this.preProcess = preProcess;
-    }
-
-    void setN(int n) {
-        this.n = n;
     }
 
     /**
@@ -25,13 +20,12 @@ class ProblemSample extends Problem implements Callable<Object> {
      */
     @Override
     protected void solve() {
-        Main.log("In Problem " + n, true);
-        this.setSolution(preProcess.getSquares().get(n));
+        this.setSolution("foo");
     }
 
     @Override
     public String toString() {
-        return "ProblemSample{n=" + n + '}';
+        return "ProblemSample{}";
     }
 
     @Override
