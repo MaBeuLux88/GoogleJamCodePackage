@@ -7,10 +7,9 @@ public class ProblemTest {
 
     @Test
     public void testName() {
-        PreProcess preProcess = new PreProcess();
-        ProblemSample pb = new ProblemSample(preProcess);
-        pb.solve();
-        Assertions.assertThat(true).isTrue();
+        Solution.Problem pb = new Solution.Problem(1, 2);
+        Object solution = pb.getSolution();
+        Assertions.assertThat(solution).isEqualTo(2);
     }
 
 }

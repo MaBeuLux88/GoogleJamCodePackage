@@ -1,9 +1,9 @@
 #!/bin/bash
-time mvn exec:java -Dexec.mainClass="com.google.Main" | grep -v "\[INFO\]"
-res=$(diff -B sample.out result.out)
+time mvn exec:java -Dexec.mainClass="com.google.Solution" < problem.in 2>/dev/null | grep -v "[INFO]" > result.out
+res=$(diff sample.out result.out)
 if [ "$res" != "" ]
 then
-  diff -yB sample.out result.out
+  diff -y sample.out result.out
 else
   echo " **********"
   echo " *** OK ***" 
